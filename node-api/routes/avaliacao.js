@@ -2,32 +2,34 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 
-const User = require("../models/User");
+const Avaliacao = require("../models/avaliacao");
 
 router.get("/", async (req, res) => {
-  const userList = await User.find().select("-passwordHash");
+  const avaliacoes = await Avaliacao.find();
 
-  if (!userList) {
+  if (!avaliacoes) {
     res.status(500).json({ success: false });
   }
-  res.send(userList);
+
+  res.send(avaliacoes);
 });
 
 router.get("/:id", async (req, res) => {
-  const user = await User.findById(req.params.id).select("-passwordHash");
+  const avaliacao = await Avaliacao.findById(req.params.id)
 
-  if (!user) {
+  if (!avaliacao) {
     res.status(500).json({
       success: false,
-      message: "The user with the given ID not exists",
+      message: "The avaliacao with the given ID was not found",
     });
   }
-  res.status(200).send(user);
+
+  res.status(200).send(avaliacao);
 });
 
 router.post("/register", async (req, res) => {
   try {
-    let user = new User({
+    let avaliacao = new Avaliacao({
       name: req.body.name,
       email: req.body.email,
       passwordHash: bcrypt.hashSync(req.body.password, 10),
@@ -40,29 +42,29 @@ router.post("/register", async (req, res) => {
       country: req.body.country,
     });
 
-    user = await user.save();
+    avaliacao = await avaliacao.save();
 
-    if (!user) {
-      return res.status(400).send("The user cannot be created");
+    if (!avaliacao) {
+      return res.status(400).send("The avaliacao cannot be created!");
     }
 
-    res.send(user);
+    res.send(avaliacao);
   } catch (err) {
     console.log(err);
   }
 });
 
 router.delete("/:id", (req, res) => {
-  User.findByIdAndRemove(req.params.id)
+  Avaliacao.findByIdAndRemove(req.params.id)
     .then((user) => {
       if (user) {
         return res
           .status(200)
-          .json({ success: true, message: "User deleted successfully" });
+          .json({ success: true, message: "Avaliacao deleted successfully" });
       } else {
         return res
           .status(404)
-          .json({ success: false, message: "User cannot find" });
+          .json({ success: false, message: "Avaliacao cannot find" });
       }
     })
     .catch((err) => {

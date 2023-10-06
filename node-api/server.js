@@ -16,19 +16,12 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(morgan("tiny"));
 
-// const api = process.env.API_URL;
-const categoriesRoute = require("./routes/categories");
-const productRoute = require("./routes/products");
-const userRoute = require("./routes/users");
-const orderRoute = require("./routes/orders");
+const avaliacaoRoute = require("./routes/avaliacao");
 
 //Routes
 
 app.get("/", (req, res) => {});
-app.use("/users", userRoute);
-app.use(`/products`, productRoute);
-app.use("/categories", categoriesRoute);
-app.use("/orders", orderRoute);
+app.use("/avaliacao", avaliacaoRoute);
 
 const dbConfig = require("./config/database.config.js");
 
