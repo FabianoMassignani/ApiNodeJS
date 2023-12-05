@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
   idPasseio: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
   },
   idUsuario: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
   },
   dataAvaliacao: {

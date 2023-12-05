@@ -14,38 +14,41 @@ router.get("/", async (req, res) => {
   res.send(avaliacoes);
 });
 
-router.get("/:id", async (req, res) => {
-  const avaliacao = await Avaliacao.findById(req.params.id)
+// idPasseio: {
+//   type: String,
+//   required: true,
+// },
+// idUsuario: {
+//   type: String,
+//   required: true,
+// },
+// dataAvaliacao: {
+//   type: Date,
+//   required: true,
+// },
+// classificacao: {
+//   type: Number,
+//   required: true,
+// },
+// comentario: {
+//   type: String,
+//   required: true,
+// },
 
-  if (!avaliacao) {
-    res.status(500).json({
-      success: false,
-      message: "The avaliacao with the given ID was not found",
-    });
-  }
-
-  res.status(200).send(avaliacao);
-});
-
-router.post("/register", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     let avaliacao = new Avaliacao({
-      name: req.body.name,
-      email: req.body.email,
-      passwordHash: bcrypt.hashSync(req.body.password, 10),
-      phone: req.body.phone,
-      isAdmin: req.body.isAdmin,
-      street: req.body.street,
-      apartment: req.body.apartment,
-      zip: req.body.zip,
-      city: req.body.city,
-      country: req.body.country,
+      idPasseio: req.body.idPasseio,
+      idUsuario: req.body.idUsuario,
+      dataAvaliacao: req.body.dataAvaliacao,
+      classificacao: req.body.classificacao,
+      comentario: req.body.comentario,
     });
 
     avaliacao = await avaliacao.save();
 
     if (!avaliacao) {
-      return res.status(400).send("The avaliacao cannot be created!");
+      return res.status(400).send("O comentario nao pode ser salvo!");
     }
 
     res.send(avaliacao);
@@ -54,22 +57,5 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.delete("/:id", (req, res) => {
-  Avaliacao.findByIdAndRemove(req.params.id)
-    .then((user) => {
-      if (user) {
-        return res
-          .status(200)
-          .json({ success: true, message: "Avaliacao deleted successfully" });
-      } else {
-        return res
-          .status(404)
-          .json({ success: false, message: "Avaliacao cannot find" });
-      }
-    })
-    .catch((err) => {
-      return res.status(400).json({ success: false, error: err });
-    });
-});
 
 module.exports = router;
