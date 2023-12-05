@@ -41,7 +41,7 @@ mongoose
     process.exit();
   });
 
-const PORT = process.env.NODE_DOCKER_PORT || 3002;
+const PORT =  3002;
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
