@@ -28,7 +28,7 @@ const dbConfig = require("./config/database.config.js");
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect(dbConfig.url, {
+  .connect('mongodb://root:root@mongodb/db_fabiano?authSource=admin', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
