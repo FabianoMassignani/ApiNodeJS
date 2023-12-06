@@ -20,7 +20,7 @@ const avaliacaoRoute = require("./routes/avaliacao");
 
 //Routes
 
-app.get("/", (req, res) => {});
+app.get("/", (req, res) => { });
 app.use("/avaliacao", avaliacaoRoute);
 
 const dbConfig = require("./config/database.config.js");
@@ -41,8 +41,9 @@ mongoose
     process.exit();
   });
 
-const PORT =  3002;
+const PORT = 3002;
 
 app.listen(PORT, () => {
+
   console.log(`Server is running on http://localhost:${PORT}`);
 });
