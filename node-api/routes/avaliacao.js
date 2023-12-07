@@ -18,8 +18,6 @@ router.get("/", async (req, res) => {
   res.send(avaliacoes);
 });
 
-
-
 router.post("/", async (req, res) => {
   try {
 

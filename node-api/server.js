@@ -19,8 +19,6 @@ app.use(morgan("tiny"));
 const avaliacaoRoute = require("./routes/avaliacao");
 
 //Routes
-
-app.get("/", (req, res) => { });
 app.use("/avaliacao", avaliacaoRoute);
 
 const dbConfig = require("./config/database.config.js");
